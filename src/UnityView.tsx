@@ -30,6 +30,7 @@ class UnityView extends Component<UnityViewProps> {
 
     componentDidMount(): void {
         const { onUnityMessage, onMessage } = this.props
+        NativeModules.Orientation.lockToLandscapeLeft()
         this.setState({
             handle: UnityModule.addMessageListener(message => {
                 if (onUnityMessage && message instanceof MessageHandler) {
@@ -44,6 +45,7 @@ class UnityView extends Component<UnityViewProps> {
 
     componentWillUnmount(): void {
         UnityModule.removeMessageListener(this.state.handle)
+        NativeModules.Orientation.lockToPortrait()
     }
 
     render() {
